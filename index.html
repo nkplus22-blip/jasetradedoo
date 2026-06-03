@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jase-TRADE d.o.o. | Brčko distrikt BiH</title>
+    <!-- Pouzdani Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome za ikone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,10 +17,10 @@
         body { 
             font-family: 'Montserrat', sans-serif; 
         }
-        /* Pozadina sa motivima voća i povrća za Hero sekciju */
+        /* Pozadina ispod teksta iz glavnog foldera prema Vašem zahtjevu */
         .hero-bg {
-            background-image: url('https://images.unsplash.com/photo-1610348725531-843dff14692a?auto=format&fit=crop&w=1920&q=80');
-            background-size: relative;
+            background-image: url('pozadinatekst.PNG');
+            background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
@@ -35,43 +38,50 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
 
+    <!-- PLUTAJUĆA WHATSAPP DUGMAD -->
     <div class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-row md:flex-col gap-3">
+        <!-- WhatsApp 1 -->
         <a href="https://wa.me/38762567217" target="_blank" class="flex items-center justify-center bg-emerald-600 text-white w-12 h-12 md:w-auto md:h-auto md:px-4 md:py-3 rounded-full shadow-2xl hover:bg-emerald-700 transition transform hover:scale-110 group" title="WhatsApp 1">
             <span class="hidden md:inline text-xs font-semibold mr-2">WhatsApp 1</span>
             <i class="fa-brands fa-whatsapp text-2xl"></i>
         </a>
+        <!-- WhatsApp 2 -->
         <a href="https://wa.me/38761828208" target="_blank" class="flex items-center justify-center bg-emerald-500 text-white w-12 h-12 md:w-auto md:h-auto md:px-4 md:py-3 rounded-full shadow-2xl hover:bg-emerald-600 transition transform hover:scale-110 group" title="WhatsApp 2">
             <span class="hidden md:inline text-xs font-semibold mr-2">WhatsApp 2</span>
             <i class="fa-brands fa-whatsapp text-2xl"></i>
         </a>
     </div>
 
-    <nav class="fixed top-0 left-0 w-full bg-white/95 backdrop-blur-md shadow-md z-40 border-b border-amber-500/10 py-4">
+    <!-- NAVIGACIJA (NAVBAR) - Sa još većim logom i savršeno raspoređenim menijem -->
+    <nav class="fixed top-0 left-0 w-full bg-white/97 backdrop-blur-md shadow-md z-40 border-b border-amber-500/10 py-4">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center gap-4">
             
+            <!-- LOGO: Dodatno uvećan na sredini -->
             <div class="block">
                 <a href="#pocetna" class="flex justify-center">
-                    <img class="h-24 sm:h-28 md:h-32 w-auto object-contain transition-transform duration-300 hover:scale-105" src="jasetradelogo.PNG" alt="Jase-TRADE d.o.o.">
+                    <img class="h-28 sm:h-36 md:h-44 w-auto object-contain transition-transform duration-300 hover:scale-105" src="jasetradelogo.PNG" alt="Jase-TRADE d.o.o.">
                 </a>
             </div>
             
-            <div class="flex items-center space-x-5 sm:space-x-8 font-bold tracking-wide text-xs sm:text-sm uppercase pt-1">
-                <a href="#pocetna" class="text-amber-600 hover:text-amber-700 transition">Početna</a>
-                <a href="#o-nama" class="text-slate-600 hover:text-amber-600 transition">O Nama</a>
-                <a href="#galerija" class="text-slate-600 hover:text-amber-600 transition">Proizvodi</a>
-                <a href="#lokacija" class="text-slate-600 hover:text-amber-600 transition">Lokacija</a>
-                <a href="#kontakt" class="text-slate-600 hover:text-amber-600 transition">Kontakt</a>
+            <!-- Linkovi menija: Optimizovan razmak, bez lomljenja teksta (white-space: nowrap) -->
+            <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-8 font-bold tracking-wide text-[11px] sm:text-sm uppercase pt-1">
+                <a href="#pocetna" class="text-amber-600 hover:text-amber-700 transition whitespace-nowrap">Početna</a>
+                <a href="#o-nama" class="text-slate-600 hover:text-amber-600 transition whitespace-nowrap">O Nama</a>
+                <a href="#galerija" class="text-slate-600 hover:text-amber-600 transition whitespace-nowrap">Proizvodi</a>
+                <a href="#lokacija" class="text-slate-600 hover:text-amber-600 transition whitespace-nowrap">Lokacija</a>
+                <a href="#kontakt" class="text-slate-600 hover:text-amber-600 transition whitespace-nowrap">Kontakt</a>
             </div>
             
         </div>
     </nav>
 
-    <section id="pocetna" class="hero-bg pt-72 pb-20 md:pt-80 md:pb-32 text-white overflow-hidden flex items-center min-h-[90vh]">
+    <!-- HERO SEKCIJA (Sa slikom pozadinatekst.PNG u pozadini i traženim tekstom) -->
+    <section id="pocetna" class="hero-bg pt-80 pb-20 md:pt-96 md:pb-32 text-white overflow-hidden flex items-center min-h-[95vh]">
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div class="text-center max-w-3xl mx-auto space-y-6">
                 <span class="inline-block border border-amber-500/40 text-amber-400 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold tracking-widest uppercase bg-amber-500/10">
-                    Dobrodošli u Jase-TRADE
+                    DOBRODOŠLI U JASE-TRADE
                 </span>
                 <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight px-2">
                     Vaš siguran partner za <span class="text-amber-400">vrhunski kvalitet</span>
@@ -91,6 +101,7 @@
         </div>
     </section>
 
+    <!-- O NAMA SEKCIJA -->
     <section id="o-nama" class="py-20 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -107,6 +118,7 @@
                         Naša vizija je jednostavna: ne pristajemo na kompromise kada je u pitanju zadovoljstvo naših kupaca. Bilo da tražite veleprodajna rješenja ili pojedinačne premium proizvode, naš tim je tu da obezbijedi efikasnu, brzu i pouzdanu realizaciju svakog zahtjeva. Zato smo prvi izbor partnera širom Bosne i Hercegovine i regiona.
                     </p>
                     
+                    <!-- Prednosti -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
                         <div class="bg-slate-50 p-4 rounded-xl border-l-4 border-amber-500 shadow-sm">
                             <div class="text-amber-500 mb-1"><i class="fa-solid fa-award text-xl"></i></div>
@@ -123,6 +135,7 @@
                     </div>
                 </div>
                 
+                <!-- Lokacijski info blok -->
                 <div class="lg:col-span-5 bg-slate-900 text-white p-6 sm:p-8 rounded-2xl shadow-xl relative overflow-hidden border border-amber-500/20">
                     <h3 class="text-xl font-bold text-amber-400 mb-3">Gdje se nalazimo?</h3>
                     <p class="text-slate-300 text-sm leading-relaxed mb-6">
@@ -142,41 +155,29 @@
         </div>
     </section>
 
+    <!-- GALERIJA SA TAČNO 30 SLIKA -->
     <section id="galerija" class="py-20 bg-slate-50 border-t border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <span class="text-amber-600 font-bold tracking-wider text-xs md:text-sm uppercase block">Naš Asortiman</span>
             <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">Galerija Proizvoda</h2>
             <p class="mt-2 text-slate-600 max-w-2xl mx-auto font-light text-sm md:text-base">Pregledajte naš bogati portfolio proizvoda na stanju.</p>
 
+            <!-- Grid sa 30 slika -->
             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mt-12">
                 
+                <!-- Slike (1 do 30) -->
                 <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200 hover:border-amber-500 hover:shadow-md transition duration-300">
-                    <div class="aspect-square bg-slate-100 overflow-hidden">
-                        <img class="w-full h-full object-cover" src="slika1.jpg" alt="Proizvod 1" onerror="this.src='https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=400&q=80'">
-                    </div>
-                    <div class="p-3 bg-white text-left border-t border-slate-100">
-                        <h3 class="font-bold text-slate-900 text-xs sm:text-sm truncate">Proizvod 1</h3>
-                    </div>
+                    <div class="aspect-square bg-slate-100 overflow-hidden"><img class="w-full h-full object-cover" src="slika1.jpg" alt="Proizvod 1"></div>
+                    <div class="p-3 text-left border-t"><h3 class="font-bold text-slate-900 text-sm truncate">Proizvod 1</h3></div>
                 </div>
-
                 <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200 hover:border-amber-500 hover:shadow-md transition duration-300">
-                    <div class="aspect-square bg-slate-100 overflow-hidden">
-                        <img class="w-full h-full object-cover" src="slika2.jpg" alt="Proizvod 2" onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80'">
-                    </div>
-                    <div class="p-3 bg-white text-left border-t border-slate-100">
-                        <h3 class="font-bold text-slate-900 text-xs sm:text-sm truncate">Proizvod 2</h3>
-                    </div>
+                    <div class="aspect-square bg-slate-100 overflow-hidden"><img class="w-full h-full object-cover" src="slika2.jpg" alt="Proizvod 2"></div>
+                    <div class="p-3 text-left border-t"><h3 class="font-bold text-slate-900 text-sm truncate">Proizvod 2</h3></div>
                 </div>
-
                 <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200 hover:border-amber-500 hover:shadow-md transition duration-300">
-                    <div class="aspect-square bg-slate-100 overflow-hidden">
-                        <img class="w-full h-full object-cover" src="slika3.jpg" alt="Proizvod 3" onerror="this.src='https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80'">
-                    </div>
-                    <div class="p-3 bg-white text-left border-t border-slate-100">
-                        <h3 class="font-bold text-slate-900 text-xs sm:text-sm truncate">Proizvod 3</h3>
-                    </div>
+                    <div class="aspect-square bg-slate-100 overflow-hidden"><img class="w-full h-full object-cover" src="slika3.jpg" alt="Proizvod 3"></div>
+                    <div class="p-3 text-left border-t"><h3 class="font-bold text-slate-900 text-sm truncate">Proizvod 3</h3></div>
                 </div>
-
                 <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200 hover:border-amber-500 hover:shadow-md transition duration-300">
                     <div class="aspect-square bg-slate-100 overflow-hidden"><img class="w-full h-full object-cover" src="slika4.jpg" alt="Proizvod 4"></div>
                     <div class="p-3 text-left border-t"><h3 class="font-bold text-slate-900 text-sm truncate">Proizvod 4</h3></div>
@@ -290,6 +291,7 @@
         </div>
     </section>
 
+    <!-- LOKACIJA I MAPA -->
     <section id="lokacija" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-12">
@@ -326,6 +328,7 @@
         </div>
     </section>
 
+    <!-- KONTAKT FORMA -->
     <section id="kontakt" class="py-20 bg-slate-950 text-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center space-y-3 mb-10">
@@ -357,6 +360,7 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="bg-slate-950 py-8 text-center text-slate-500 text-xs border-t border-slate-900">
         <p class="font-semibold text-slate-400 text-sm">Jase-TRADE d.o.o. Brčko distrikt BiH</p>
         <p class="mt-1">© 2026 Sva prava zadržana.</p>
