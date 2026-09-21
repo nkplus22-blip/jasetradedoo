@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bs" class="scroll-smooth">
+<html lang="bs" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,20 +17,35 @@
                 extend: {
                     colors: {
                         gold: {
+                            300: '#fde047',
                             400: '#fbbf24',
                             500: '#f59e0b',
                             600: '#d97706',
                             700: '#b45309',
+                            800: '#92400e',
                         },
                         dark: {
-                            950: '#020617',
-                            900: '#0f172a',
-                            800: '#1e293b',
-                            700: '#334155'
+                            950: '#030712',
+                            900: '#0b0f19',
+                            850: '#111827',
+                            800: '#1f2937',
+                            700: '#374151'
                         }
                     },
                     fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Syne', 'Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
                     }
                 }
             }
@@ -40,37 +55,41 @@
     <!-- FontAwesome 6 Pro icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Google Fonts: Montserrat & Plus Jakarta Sans -->
+    <!-- Google Fonts: Syne, Montserrat & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200..900;1,200..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..900;1,300..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     
     <!-- AOS za skrol animacije -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         body { 
-            font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
             overflow-x: hidden;
-            background-color: #020617;
+            background-color: #030712;
             color: #f8fafc;
         }
         
         h1, h2, h3, h4, .font-heading {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Syne', 'Montserrat', sans-serif;
         }
 
         /* CUSTOM KURSOR NA DESKTOPU */
         @media (pointer: fine) {
             body { cursor: none; }
-            a, button, input, textarea, select, .clickable { cursor: none !important; }
+            a, button, input, textarea, select, .clickable, .hover-target { cursor: none !important; }
         }
 
-        /* SCROLLBAR */
+        /* SCROLLBAR WORLD CLASS */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #020617; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #f59e0b, #b45309); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(to bottom, #f59e0b, #b45309); 
+            border-radius: 99px;
+            border: 2px solid #030712;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #fbbf24; }
 
         /* CUSTOM KURSOR STILOVI */
         .cursor-dot, .cursor-outline {
@@ -78,84 +97,110 @@
             top: 0; left: 0;
             transform: translate(-50%, -50%);
             border-radius: 50%;
-            z-index: 99999;
+            z-index: 999999;
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
         .cursor-dot {
             width: 8px; height: 8px;
-            background-color: #f59e0b;
+            background-color: #fbbf24;
+            box-shadow: 0 0 12px #f59e0b;
         }
         .cursor-outline {
             width: 44px; height: 44px;
-            border: 1.5px solid rgba(245, 158, 11, 0.6);
-            transition: width 0.25s ease-out, height 0.25s ease-out, background-color 0.25s ease-out, border-color 0.25s ease-out;
+            border: 1.5px solid rgba(245, 158, 11, 0.5);
+            transition: width 0.2s ease-out, height 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out;
         }
         .cursor-hover {
             width: 65px; height: 65px;
-            background-color: rgba(245, 158, 11, 0.15);
-            border-color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.12);
+            border-color: #fbbf24;
             backdrop-filter: blur(2px);
         }
 
-        /* PRELOADER */
+        /* PRELOADER LUXURY */
         #preloader {
             position: fixed; inset: 0;
-            background: #020617;
-            z-index: 100000;
+            background: #030712;
+            z-index: 1000000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.7s;
-        }
-        .loader-glow {
-            box-shadow: 0 0 60px 10px rgba(245, 158, 11, 0.25);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
         }
 
-        /* GLASSMORPHISM ENTERPRISE */
+        /* GLASSMORPHISM ENTERPRISE PRO MAX */
         .glass-card {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(11, 15, 25, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-card-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card-hover:hover {
+            transform: translateY(-6px);
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 0 30px 60px rgba(245, 158, 11, 0.12), 0 0 20px rgba(245, 158, 11, 0.08);
         }
         
         .glass-nav {
-            background: rgba(2, 6, 23, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(3, 7, 18, 0.78);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         /* GRADIENT TEXT & BORDER */
         .text-gradient-gold {
-            background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #b45309 100%);
+            background: linear-gradient(135deg, #fffbeb 0%, #fef08a 25%, #f59e0b 60%, #b45309 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .border-gradient-gold {
-            border-image: linear-gradient(to right, #f59e0b, #b45309) 1;
-        }
-
-        /* BACKGROUND HERO & SHADOWS */
+        /* BACKGROUND HERO & OVERLAY */
         .hero-bg-overlay {
-            background: radial-gradient(circle at 50% 30%, rgba(15, 23, 42, 0.5) 0%, rgba(2, 6, 23, 0.98) 90%);
+            background: radial-gradient(circle at 50% 30%, rgba(11, 15, 25, 0.4) 0%, rgba(3, 7, 18, 0.98) 85%);
         }
 
-        /* INPUT ANIMATIONS */
+        /* SHINE EFEKAT NA KARTICAMA */
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(
+                60deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.08) 50%,
+                transparent 70%
+            );
+            transform: rotate(30deg) translateY(-100%);
+            transition: transform 0.8s ease;
+        }
+        .shine-effect:hover::after {
+            transform: rotate(30deg) translateY(100%);
+        }
+
+        /* FLOATING INPUTS */
         .floating-input:focus ~ label,
         .floating-input:not(:placeholder-shown) ~ label {
             transform: translateY(-1.5rem) scale(0.85);
             color: #f59e0b;
         }
 
-        /* WIDGET WHATSAPP LOGIC */
+        /* WIDGET WHATSAPP ANIMACIJA */
         .widget-panel {
             transform: translateY(20px) scale(0.95);
             opacity: 0;
             pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .widget-open .widget-panel {
             transform: translateY(0) scale(1);
@@ -166,17 +211,17 @@
 </head>
 <body class="antialiased selection:bg-gold-500 selection:text-black">
 
-    <!-- PRELOADER -->
+    <!-- PRELOADER WORLD CLASS -->
     <div id="preloader">
         <div class="relative flex flex-col justify-center items-center">
-            <div class="w-28 h-28 rounded-full border-2 border-gold-500/20 border-t-gold-500 animate-spin absolute"></div>
-            <div class="w-36 h-36 rounded-full border border-white/10 border-b-gold-400/40 animate-pulse absolute"></div>
-            <img src="jasetradelogo.PNG" alt="Jase TRADE" class="h-14 w-auto z-10 filter drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]" onerror="this.style.display='none'; document.getElementById('logo-fallback-p').classList.remove('hidden')">
-            <span id="logo-fallback-p" class="hidden font-black text-2xl tracking-widest text-white">JASE<span class="text-gold-500">-TRADE</span></span>
+            <div class="w-32 h-32 rounded-full border-2 border-gold-500/20 border-t-gold-500 animate-spin absolute"></div>
+            <div class="w-40 h-40 rounded-full border border-white/5 border-b-gold-400/40 animate-spin-slow absolute"></div>
+            <img src="jasetradelogo.PNG" alt="Jase TRADE" class="h-16 w-auto z-10 filter drop-shadow-[0_0_20px_rgba(245,158,11,0.6)]" onerror="this.style.display='none'; document.getElementById('logo-fallback-p').classList.remove('hidden')">
+            <span id="logo-fallback-p" class="hidden font-black text-3xl tracking-widest text-white font-heading">JASE<span class="text-gold-500">-TRADE</span></span>
         </div>
-        <div class="mt-12 flex items-center gap-3">
-            <span class="w-2 h-2 rounded-full bg-gold-500 animate-ping"></span>
-            <span class="text-gold-400 tracking-[0.35em] text-xs font-extrabold uppercase">Učitavanje Enterprise Portala...</span>
+        <div class="mt-14 flex items-center gap-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-gold-400 animate-ping"></span>
+            <span class="text-gold-400 tracking-[0.4em] text-xs font-black uppercase font-heading">Inicijalizacija Enterprise Portala...</span>
         </div>
     </div>
 
@@ -184,74 +229,117 @@
     <div class="cursor-dot hidden md:block"></div>
     <div class="cursor-outline hidden md:block"></div>
 
-    <!-- LIGHTBOX / FULLSCREEN SLIKA -->
-    <div id="lightbox" class="fixed inset-0 z-[10000] bg-dark-950/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-300 flex flex-col items-center justify-center p-4 md:p-10">
-        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-slate-400 hover:text-gold-500 transition-colors text-3xl hover-target p-2 focus:outline-none">
+    <!-- ENTERPRISE LIGHTBOX / FULLSCREEN SLIKA -->
+    <div id="lightbox" class="fixed inset-0 z-[100000] bg-dark-950/98 backdrop-blur-3xl opacity-0 pointer-events-none transition-all duration-300 flex flex-col items-center justify-center p-4 md:p-10">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-slate-400 hover:text-gold-400 transition-colors text-3xl hover-target p-3 focus:outline-none z-10">
             <i class="fa-solid fa-xmark"></i>
         </button>
-        <div class="relative max-w-5xl max-h-[85vh] flex flex-col items-center justify-center">
-            <img id="lightbox-img" src="" alt="Pregled proizvoda" class="max-w-full max-h-[75vh] object-contain rounded-2xl border border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.8)] transition-transform duration-300">
-            <p id="lightbox-caption" class="mt-4 text-gold-400 font-bold text-lg tracking-wide uppercase font-heading"></p>
+        <div class="relative max-w-5xl w-full flex flex-col items-center justify-center">
+            <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(245,158,11,0.2)] bg-dark-900/80 p-2">
+                <img id="lightbox-img" src="" alt="Pregled proizvoda" class="max-w-full max-h-[70vh] object-contain rounded-2xl">
+            </div>
+            <div class="mt-6 text-center space-y-3">
+                <h3 id="lightbox-caption" class="text-gold-400 font-extrabold text-2xl tracking-wide uppercase font-heading"></h3>
+                <p class="text-xs text-slate-400 uppercase tracking-widest">Premium Artikal • Jase-TRADE d.o.o. Asortiman</p>
+                <div class="pt-2 flex justify-center gap-4">
+                    <a id="lightbox-wa-btn" href="https://wa.me/38762567217" target="_blank" class="hover-target inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider transition-all">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Upit za ovaj artikal
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- SMART WHATSAPP & DIRECT CONTACT FLOATING WIDGET -->
+    <!-- B2B QUICK QUOTE MODAL -->
+    <div id="b2b-modal" class="fixed inset-0 z-[90000] bg-dark-950/90 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-300 flex items-center justify-center p-4">
+        <div class="glass-card max-w-xl w-full p-8 sm:p-10 rounded-3xl relative border border-gold-500/30">
+            <button onclick="closeB2BModal()" class="absolute top-6 right-6 text-slate-400 hover:text-gold-400 text-2xl hover-target">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="mb-6">
+                <span class="text-gold-400 text-xs font-black uppercase tracking-[0.3em] block mb-1">Brzi B2B Zahtjev</span>
+                <h3 class="text-2xl font-black text-white font-heading">Zatražite Veleprodajnu Ponudu</h3>
+            </div>
+            <form onsubmit="handleB2BSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="text-xs text-slate-300 font-bold uppercase tracking-wider block mb-2">Firma / Ime</label>
+                    <input type="text" required class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-300 font-bold uppercase tracking-wider block mb-2">Kontakt Telefon / Email</label>
+                    <input type="text" required class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-300 font-bold uppercase tracking-wider block mb-2">Poruka ili lista artikala za veleprodaju</label>
+                    <textarea rows="3" required class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500 resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full py-4 bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 text-dark-950 font-black uppercase tracking-[0.2em] text-xs rounded-xl hover:shadow-[0_0_30px_rgba(245,158,11,0.5)] transition-all">
+                    Pošalji B2B Upit Direktno
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SMART WHATSAPP & DIRECT CONTACT FLOATING HUB -->
     <div id="smart-widget" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
         <!-- Floating Chat Menu -->
-        <div class="widget-panel mb-4 flex flex-col gap-3 min-w-[280px]">
-            <div class="bg-dark-900/95 border border-white/10 p-4 rounded-2xl backdrop-blur-xl shadow-2xl">
-                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 border-b border-white/5 pb-2 flex items-center justify-between">
-                    <span>Brzi Kontakt</span>
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <div class="widget-panel mb-4 flex flex-col gap-3 min-w-[300px]">
+            <div class="bg-dark-900/95 border border-gold-500/30 p-5 rounded-3xl backdrop-blur-2xl shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 w-28 h-28 bg-gold-500/10 rounded-full blur-xl pointer-events-none"></div>
+                <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.25em] mb-4 border-b border-white/10 pb-2 flex items-center justify-between">
+                    <span>Podrška & Prodaja Live</span>
+                    <span class="inline-flex items-center gap-1.5 text-emerald-400 font-bold">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Online
+                    </span>
                 </div>
                 
                 <!-- Osoba 1 -->
-                <a href="https://wa.me/38762567217" target="_blank" class="hover-target flex items-center justify-between p-3 rounded-xl bg-slate-800/50 hover:bg-emerald-600/20 border border-transparent hover:border-emerald-500/40 transition-all duration-200 group mb-2">
+                <a href="https://wa.me/38762567217" target="_blank" class="hover-target flex items-center justify-between p-3.5 rounded-2xl bg-dark-850 hover:bg-emerald-600/20 border border-white/5 hover:border-emerald-500/50 transition-all duration-300 group mb-2.5">
                     <div>
-                        <p class="text-xs text-slate-400 font-medium">Direktor / Prodaja 1</p>
-                        <p class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">+387 62 567 217</p>
+                        <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Direktor / Prodaja 1</p>
+                        <p class="text-sm font-extrabold text-white group-hover:text-emerald-400 transition-colors">+387 62 567 217</p>
                     </div>
-                    <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-black transition-all">
-                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <div class="w-11 h-11 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-black transition-all shadow-lg">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
                     </div>
                 </a>
 
                 <!-- Osoba 2 -->
-                <a href="https://wa.me/38761828208" target="_blank" class="hover-target flex items-center justify-between p-3 rounded-xl bg-slate-800/50 hover:bg-emerald-600/20 border border-transparent hover:border-emerald-500/40 transition-all duration-200 group">
+                <a href="https://wa.me/38761828208" target="_blank" class="hover-target flex items-center justify-between p-3.5 rounded-2xl bg-dark-850 hover:bg-emerald-600/20 border border-white/5 hover:border-emerald-500/50 transition-all duration-300 group">
                     <div>
-                        <p class="text-xs text-slate-400 font-medium">Prodaja 2</p>
-                        <p class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">+387 61 828 208</p>
+                        <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Prodaja 2</p>
+                        <p class="text-sm font-extrabold text-white group-hover:text-emerald-400 transition-colors">+387 61 828 208</p>
                     </div>
-                    <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-black transition-all">
-                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <div class="w-11 h-11 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-black transition-all shadow-lg">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
                     </div>
                 </a>
             </div>
         </div>
 
         <!-- Floating Button -->
-        <button onclick="toggleWidget()" class="hover-target group w-16 h-16 bg-gradient-to-tr from-gold-600 via-gold-500 to-amber-400 rounded-2xl flex items-center justify-center text-black shadow-[0_0_30px_rgba(245,158,11,0.4)] relative hover:scale-105 transition-transform duration-300">
+        <button onclick="toggleWidget()" class="hover-target group w-16 h-16 bg-gradient-to-tr from-gold-600 via-gold-500 to-amber-300 rounded-2xl flex items-center justify-center text-dark-950 shadow-[0_0_35px_rgba(245,158,11,0.5)] relative hover:scale-105 transition-transform duration-300">
             <i class="fa-solid fa-headset text-2xl z-10 group-hover:rotate-12 transition-transform"></i>
-            <span class="absolute inset-0 rounded-2xl bg-gold-400 animate-ping opacity-25"></span>
+            <span class="absolute inset-0 rounded-2xl bg-gold-400 animate-ping opacity-30"></span>
         </button>
     </div>
 
     <!-- ENTERPRISE HEADER / NAVIGACIJA -->
     <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 py-5" id="header">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="glass-nav rounded-2xl px-6 py-3 flex justify-between items-center transition-all duration-300 shadow-2xl">
+            <div class="glass-nav rounded-2xl px-6 py-3.5 flex justify-between items-center transition-all duration-300 shadow-2xl">
                 
                 <!-- LOGO -->
                 <a href="#pocetna" class="flex items-center gap-3 hover-target group">
-                    <img id="nav-logo" class="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105" src="jasetradelogo.PNG" alt="Jase-TRADE d.o.o." onerror="this.style.display='none'; document.getElementById('logo-fallback-nav').classList.remove('hidden')">
+                    <img id="nav-logo" class="h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_12px_rgba(245,158,11,0.3)]" src="jasetradelogo.PNG" alt="Jase-TRADE d.o.o." onerror="this.style.display='none'; document.getElementById('logo-fallback-nav').classList.remove('hidden')">
                     <div id="logo-fallback-nav" class="hidden flex-col">
-                        <span class="font-black text-xl tracking-wider text-white">JASE<span class="text-gold-500">-TRADE</span></span>
-                        <span class="text-[9px] tracking-[0.3em] text-slate-400 uppercase font-bold">d.o.o. Brčko</span>
+                        <span class="font-black text-xl tracking-wider text-white font-heading">JASE<span class="text-gold-500">-TRADE</span></span>
+                        <span class="text-[8px] tracking-[0.35em] text-slate-400 uppercase font-extrabold">d.o.o. Brčko</span>
                     </div>
                 </a>
 
                 <!-- DESKTOP NAV LINKOVI -->
-                <nav class="hidden lg:flex items-center gap-8 font-bold text-xs uppercase tracking-[0.2em] text-slate-300">
+                <nav class="hidden lg:flex items-center gap-9 font-extrabold text-[11px] uppercase tracking-[0.22em] text-slate-300">
                     <a href="#pocetna" class="hover:text-gold-400 transition-colors hover-target relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold-500 hover:after:w-full after:transition-all">Početna</a>
                     <a href="#o-nama" class="hover:text-gold-400 transition-colors hover-target relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold-500 hover:after:w-full after:transition-all">O Nama</a>
                     <a href="#usluge" class="hover:text-gold-400 transition-colors hover-target relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold-500 hover:after:w-full after:transition-all">Djelatnosti</a>
@@ -259,55 +347,66 @@
                     <a href="#lokacija" class="hover:text-gold-400 transition-colors hover-target relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold-500 hover:after:w-full after:transition-all">Lokacija</a>
                 </nav>
 
-                <!-- DESKTOP DUGME KONTAKT -->
+                <!-- DESKTOP DUGMEDAD KONTAKT & B2B -->
                 <div class="hidden lg:flex items-center gap-4">
-                    <a href="#kontakt" class="hover-target relative inline-flex items-center justify-center px-6 py-2.5 text-xs font-black uppercase tracking-widest text-dark-950 bg-gradient-to-r from-gold-400 to-gold-500 rounded-xl hover:from-gold-500 hover:to-gold-600 transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:shadow-[0_0_30px_rgba(245,158,11,0.5)]">
+                    <button onclick="openB2BModal()" class="hover-target text-xs font-extrabold uppercase tracking-wider text-gold-400 hover:text-white transition-colors">
+                        <i class="fa-solid fa-briefcase mr-1.5"></i> B2B Upit
+                    </button>
+                    <a href="#kontakt" class="hover-target relative inline-flex items-center justify-center px-6 py-2.5 text-xs font-black uppercase tracking-widest text-dark-950 bg-gradient-to-r from-gold-400 via-gold-500 to-amber-500 rounded-xl hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] transition-all duration-300">
                         <i class="fa-solid fa-paper-plane mr-2"></i> Kontakt
                     </a>
                 </div>
 
                 <!-- MOBILE MENU BUTTON -->
-                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden text-white hover:text-gold-500 focus:outline-none p-2 hover-target">
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden text-white hover:text-gold-400 focus:outline-none p-2 hover-target">
                     <i class="fa-solid fa-bars-staggered text-2xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- MOBILE MENU OVERLAY -->
-        <div id="mobile-menu" class="fixed inset-0 bg-dark-950/98 backdrop-blur-2xl z-[100] flex flex-col justify-center items-center gap-8 transition-all duration-500 opacity-0 pointer-events-none">
-            <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-white text-3xl hover:text-gold-500 transition-colors">
+        <div id="mobile-menu" class="fixed inset-0 bg-dark-950/98 backdrop-blur-3xl z-[100] flex flex-col justify-center items-center gap-7 transition-all duration-500 opacity-0 pointer-events-none p-6">
+            <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-white text-3xl hover:text-gold-400 transition-colors">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             
-            <a href="#pocetna" onclick="toggleMobileMenu()" class="text-2xl font-black uppercase tracking-widest text-white hover:text-gold-400 transition-colors">Početna</a>
-            <a href="#o-nama" onclick="toggleMobileMenu()" class="text-2xl font-black uppercase tracking-widest text-white hover:text-gold-400 transition-colors">O Nama</a>
-            <a href="#usluge" onclick="toggleMobileMenu()" class="text-2xl font-black uppercase tracking-widest text-white hover:text-gold-400 transition-colors">Djelatnosti</a>
-            <a href="#galerija" onclick="toggleMobileMenu()" class="text-2xl font-black uppercase tracking-widest text-white hover:text-gold-400 transition-colors">Proizvodi</a>
-            <a href="#lokacija" onclick="toggleMobileMenu()" class="text-2xl font-black uppercase tracking-widest text-white hover:text-gold-400 transition-colors">Lokacija</a>
-            <a href="#kontakt" onclick="toggleMobileMenu()" class="mt-4 px-8 py-4 bg-gold-500 text-dark-950 font-black uppercase tracking-widest rounded-xl">Zatraži Ponudu</a>
+            <a href="#pocetna" onclick="toggleMobileMenu()" class="text-2xl font-black uppercase tracking-widest text-white hover:text-gold-400 transition-colors font-heading">Početna</a>
+            <a href="#o-nama" onclick="toggleMobileMenu()" class="text-2xl font-black uppercase tracking-widest text-white hover:text-gold-400 transition-colors font-heading">O Nama</a>
+            <a href="#usluge" onclick="toggleMobileMenu()" class="text-2xl font-black uppercase tracking-widest text-white hover:text-gold-400 transition-colors font-heading">Djelatnosti</a>
+            <a href="#galerija" onclick="toggleMobileMenu()" class="text-2xl font-black uppercase tracking-widest text-white hover:text-gold-400 transition-colors font-heading">Katalog</a>
+            <a href="#lokacija" onclick="toggleMobileMenu()" class="text-2xl font-black uppercase tracking-widest text-white hover:text-gold-400 transition-colors font-heading">Lokacija</a>
+            
+            <div class="pt-6 w-full max-w-xs flex flex-col gap-3">
+                <button onclick="toggleMobileMenu(); openB2BModal();" class="w-full py-3.5 bg-dark-900 border border-gold-500/40 text-gold-400 font-bold uppercase tracking-widest rounded-xl text-xs">
+                    Brzi B2B Zahtjev
+                </button>
+                <a href="#kontakt" onclick="toggleMobileMenu()" class="w-full py-3.5 text-center bg-gradient-to-r from-gold-400 to-gold-600 text-dark-950 font-black uppercase tracking-widest rounded-xl text-xs shadow-lg">
+                    Kontaktirajte Nas
+                </a>
+            </div>
         </div>
     </header>
 
-    <!-- HERO SEKCIJA -->
-    <section id="pocetna" class="min-h-screen relative flex items-center justify-center pt-28 pb-20 overflow-hidden bg-[url('pozadinatekst.PNG')] bg-cover bg-center bg-fixed">
+    <!-- HERO SEKCIJA WORLD CLASS -->
+    <section id="pocetna" class="min-h-screen relative flex items-center justify-center pt-32 pb-24 overflow-hidden bg-[url('pozadinatekst.PNG')] bg-cover bg-center bg-fixed">
         <div class="absolute inset-0 hero-bg-overlay"></div>
         
-        <!-- GLOW LIGHT ORBS (Ambijentalna svjetla) -->
-        <div class="absolute top-1/3 left-1/5 w-96 h-96 bg-gold-500/15 rounded-full blur-[140px] pointer-events-none"></div>
-        <div class="absolute bottom-1/4 right-1/5 w-[30rem] h-[30rem] bg-amber-600/10 rounded-full blur-[160px] pointer-events-none"></div>
+        <!-- GLOW LIGHT ORBS -->
+        <div class="absolute top-1/4 left-1/6 w-[32rem] h-[32rem] bg-gold-500/10 rounded-full blur-[160px] pointer-events-none animate-pulse-slow"></div>
+        <div class="absolute bottom-1/3 right-1/6 w-[36rem] h-[36rem] bg-amber-600/10 rounded-full blur-[180px] pointer-events-none"></div>
 
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-center">
             
-            <div class="glass-card p-8 sm:p-14 lg:p-20 rounded-3xl text-center max-w-5xl border border-white/10 relative overflow-hidden backdrop-blur-2xl" data-aos="zoom-in" data-aos-duration="1000">
+            <div class="glass-card shine-effect p-8 sm:p-14 lg:p-20 rounded-[2.5rem] text-center max-w-5xl border border-white/10 relative overflow-hidden backdrop-blur-3xl shadow-[0_30px_100px_rgba(0,0,0,0.8)]" data-aos="zoom-in" data-aos-duration="1000">
                 
                 <!-- Top Badge -->
-                <div class="inline-flex items-center gap-3 border border-gold-500/30 bg-gold-500/10 px-5 py-2 rounded-full mb-8">
-                    <span class="w-2.5 h-2.5 rounded-full bg-gold-400 animate-pulse shadow-[0_0_10px_#f59e0b]"></span>
-                    <span class="text-xs font-black uppercase tracking-[0.25em] text-gold-300">Lider u Veleprodaji & Maloprodaji • Brčko Distrikt</span>
+                <div class="inline-flex items-center gap-3 border border-gold-500/40 bg-gold-500/10 px-6 py-2.5 rounded-full mb-8 backdrop-blur-md">
+                    <span class="w-2.5 h-2.5 rounded-full bg-gold-400 animate-ping shadow-[0_0_12px_#f59e0b]"></span>
+                    <span class="text-xs font-black uppercase tracking-[0.28em] text-gold-300 font-heading">Lider u Veleprodaji & Maloprodaji • Brčko Distrikt</span>
                 </div>
                 
                 <!-- Main Title -->
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] text-white mb-8 font-heading">
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05] text-white mb-8 font-heading">
                     Vaš Pouzdan Partner za <br class="hidden sm:inline">
                     <span class="text-gradient-gold">Vrhunski Kvalitet.</span>
                 </h1>
@@ -319,28 +418,28 @@
                 
                 <!-- CTA Buttons -->
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-5">
-                    <a href="#galerija" class="hover-target w-full sm:w-auto inline-flex items-center justify-center px-9 py-4 text-xs font-black uppercase tracking-[0.2em] text-dark-950 bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 rounded-xl hover:shadow-[0_0_30px_rgba(245,158,11,0.5)] transition-all duration-300 group">
+                    <a href="#galerija" class="hover-target w-full sm:w-auto inline-flex items-center justify-center px-10 py-4.5 text-xs font-black uppercase tracking-[0.2em] text-dark-950 bg-gradient-to-r from-gold-400 via-gold-500 to-amber-500 rounded-xl hover:shadow-[0_0_35px_rgba(245,158,11,0.6)] transition-all duration-300 group">
                         <span>Istraži Asortiman</span>
                         <i class="fa-solid fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
                     </a>
                     
-                    <a href="#kontakt" class="hover-target w-full sm:w-auto inline-flex items-center justify-center px-9 py-4 text-xs font-black uppercase tracking-[0.2em] text-white bg-slate-900/80 hover:bg-white hover:text-dark-950 border border-white/20 rounded-xl transition-all duration-300 backdrop-blur-md">
+                    <button onclick="openB2BModal()" class="hover-target w-full sm:w-auto inline-flex items-center justify-center px-10 py-4.5 text-xs font-black uppercase tracking-[0.2em] text-white bg-dark-900/90 hover:bg-white hover:text-dark-950 border border-white/20 hover:border-white rounded-xl transition-all duration-300 backdrop-blur-md">
                         Zatražite B2B Ponudu
-                    </a>
+                    </button>
                 </div>
 
                 <!-- Fast Contact Badges -->
-                <div class="mt-12 pt-8 border-t border-white/10 flex flex-wrap justify-center items-center gap-8 text-xs text-slate-400 font-semibold">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-truck-fast text-gold-400 text-sm"></i>
+                <div class="mt-14 pt-8 border-t border-white/10 flex flex-wrap justify-center items-center gap-8 sm:gap-12 text-xs text-slate-300 font-bold uppercase tracking-wider">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-truck-fast text-gold-400 text-base"></i>
                         <span>Brza Dostava širom BiH</span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-shield-halved text-gold-400 text-sm"></i>
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-shield-halved text-gold-400 text-base"></i>
                         <span>100% Provjeren Kvalitet</span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-headset text-gold-400 text-sm"></i>
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-headset text-gold-400 text-base"></i>
                         <span>Direktna Podrška</span>
                     </div>
                 </div>
@@ -401,7 +500,7 @@
                 <!-- Tekstualni Dio -->
                 <div class="lg:col-span-7 space-y-8" data-aos="fade-right">
                     <div>
-                        <span class="text-gold-400 font-extrabold tracking-[0.3em] text-xs uppercase flex items-center gap-3 mb-3">
+                        <span class="text-gold-400 font-black tracking-[0.35em] text-xs uppercase flex items-center gap-3 mb-3">
                             <span class="w-8 h-px bg-gold-400"></span> O Našoj Kompaniji
                         </span>
                         <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight font-heading">
@@ -414,27 +513,27 @@
                         Smješteni na strateškoj lokaciji na <strong class="text-white font-bold">Tržnici Arizona (Dubrave, Brčko distrikt)</strong>, kompanija <strong class="text-gold-400 font-bold">Jase-TRADE d.o.o.</strong> predstavlja vodeći stub u sferi veleprodaje i maloprodaje.
                     </p>
 
-                    <div class="border-l-2 border-gold-500 pl-6 py-2 bg-gradient-to-r from-gold-500/5 to-transparent rounded-r-xl">
-                        <p class="text-slate-200 text-base italic font-serif leading-relaxed">
+                    <div class="border-l-4 border-gold-500 pl-6 py-3 bg-gradient-to-r from-gold-500/10 to-transparent rounded-r-2xl">
+                        <p class="text-slate-200 text-base italic leading-relaxed">
                             "Naš cilj je pružiti partnerima i kupcima beskompromisan kvalitet proizvoda uz najviši nivo profesionalizma i brzu isporuku."
                         </p>
                     </div>
 
                     <!-- Prednosti Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
-                        <div class="p-5 rounded-2xl bg-dark-900 border border-white/5 hover:border-gold-500/40 transition-all duration-300 hover-target">
-                            <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center text-gold-400 text-xl mb-4">
+                        <div class="glass-card glass-card-hover p-6 rounded-2xl border border-white/10 hover-target">
+                            <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center text-gold-400 text-2xl mb-4 shadow-md">
                                 <i class="fa-solid fa-boxes-packing"></i>
                             </div>
-                            <h4 class="font-bold text-white text-base mb-1">Veleprodaja & Maloprodaja</h4>
+                            <h4 class="font-bold text-white text-base mb-1 font-heading">Veleprodaja & Maloprodaja</h4>
                             <p class="text-xs text-slate-400 leading-relaxed">Fleksibilni uvjeti poslovanja prilagođeni malim radnjama i velikim sistemima.</p>
                         </div>
 
-                        <div class="p-5 rounded-2xl bg-dark-900 border border-white/5 hover:border-gold-500/40 transition-all duration-300 hover-target">
-                            <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center text-gold-400 text-xl mb-4">
+                        <div class="glass-card glass-card-hover p-6 rounded-2xl border border-white/10 hover-target">
+                            <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center text-gold-400 text-2xl mb-4 shadow-md">
                                 <i class="fa-solid fa-truck-ramp-box"></i>
                             </div>
-                            <h4 class="font-bold text-white text-base mb-1">Sigurna Logistika</h4>
+                            <h4 class="font-bold text-white text-base mb-1 font-heading">Sigurna Logistika</h4>
                             <p class="text-xs text-slate-400 leading-relaxed">Brza obrada i brza isporuka roba širom cijele Bosne i Hercegovine.</p>
                         </div>
                     </div>
@@ -442,21 +541,21 @@
 
                 <!-- Vizuelni Dio / Logo Display -->
                 <div class="lg:col-span-5 relative" data-aos="fade-left">
-                    <div class="relative rounded-3xl p-1 bg-gradient-to-b from-gold-500/30 via-slate-800 to-transparent shadow-2xl">
-                        <div class="bg-dark-900 p-8 sm:p-12 rounded-[22px] flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[420px]">
-                            <div class="absolute inset-0 bg-gold-500/5 blur-3xl"></div>
+                    <div class="relative rounded-3xl p-1 bg-gradient-to-b from-gold-500/40 via-dark-800 to-transparent shadow-2xl">
+                        <div class="bg-dark-900 p-8 sm:p-12 rounded-[22px] flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[440px]">
+                            <div class="absolute inset-0 bg-gold-500/10 blur-3xl"></div>
                             
-                            <img src="jasetradelogo.PNG" alt="Jase-TRADE Logo Enterprise" class="max-w-[260px] w-full h-auto object-contain filter drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)] mb-8 transition-transform duration-500 hover:scale-105 hover-target" onerror="this.style.display='none'">
+                            <img src="jasetradelogo.PNG" alt="Jase-TRADE Logo Enterprise" class="max-w-[270px] w-full h-auto object-contain filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)] mb-8 transition-transform duration-500 hover:scale-105 hover-target" onerror="this.style.display='none'">
                             
                             <div class="space-y-2 z-10">
-                                <span class="text-xs font-black uppercase tracking-[0.3em] text-gold-400">Pravni Subjekt</span>
+                                <span class="text-xs font-black uppercase tracking-[0.35em] text-gold-400 font-heading">Pravni Subjekt</span>
                                 <h3 class="text-2xl font-black text-white font-heading">Jase-TRADE d.o.o.</h3>
                                 <p class="text-xs text-slate-400">ID & Porezni Broj uredno registrovan u Brčko distriktu</p>
                             </div>
 
                             <div class="mt-8 pt-6 border-t border-white/10 w-full flex justify-between items-center text-xs text-slate-400 font-semibold">
-                                <span><i class="fa-solid fa-location-dot text-gold-400 mr-1"></i> Arizona, Dubrave</span>
-                                <span class="text-emerald-400"><i class="fa-solid fa-circle text-[8px] mr-1"></i> Aktivno</span>
+                                <span><i class="fa-solid fa-location-dot text-gold-400 mr-1.5"></i> Arizona, Dubrave</span>
+                                <span class="text-emerald-400 flex items-center gap-1.5 font-bold"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Aktivno</span>
                             </div>
                         </div>
                     </div>
@@ -467,10 +566,10 @@
     </section>
 
     <!-- DJELATNOSTI / USLUGE SEKCIJA -->
-    <section id="usluge" class="py-24 bg-dark-900 border-t border-white/5 relative">
+    <section id="usluge" class="py-28 bg-dark-900 border-t border-white/5 relative">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-gold-400 font-extrabold tracking-[0.3em] text-xs uppercase block mb-3">
+                <span class="text-gold-400 font-extrabold tracking-[0.35em] text-xs uppercase block mb-3 font-heading">
                     Strateške Usluge
                 </span>
                 <h2 class="text-3xl sm:text-5xl font-black text-white font-heading">Šta Nudimo Partnerima</h2>
@@ -481,43 +580,43 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Kartica 1 -->
-                <div class="glass-card p-8 rounded-3xl border border-white/10 hover:border-gold-500/50 transition-all duration-300 group hover-target" data-aos="fade-up" data-aos-delay="0">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-gold-600 to-amber-400 flex items-center justify-center text-dark-950 text-2xl font-black mb-6 group-hover:scale-110 transition-transform">
+                <div class="glass-card glass-card-hover shine-effect p-8 rounded-3xl border border-white/10 group hover-target" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-gold-600 to-amber-400 flex items-center justify-center text-dark-950 text-2xl font-black mb-6 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(245,158,11,0.4)]">
                         <i class="fa-solid fa-warehouse"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3 font-heading">Veleprodaja (B2B)</h3>
                     <p class="text-slate-300 text-sm leading-relaxed font-light mb-6">
                         Nudimo veleprodajne količine uz najpovoljnije rabate za distributere, trgovine i firme. Zagarantovane stalne zalihe.
                     </p>
-                    <a href="#kontakt" class="inline-flex items-center text-xs font-bold uppercase tracking-wider text-gold-400 group-hover:text-gold-300">
+                    <button onclick="openB2BModal()" class="inline-flex items-center text-xs font-extrabold uppercase tracking-wider text-gold-400 hover:text-gold-300">
                         Zatraži Katalog & Cjenovnik <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
+                    </button>
                 </div>
 
                 <!-- Kartica 2 -->
-                <div class="glass-card p-8 rounded-3xl border border-white/10 hover:border-gold-500/50 transition-all duration-300 group hover-target" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-gold-600 to-amber-400 flex items-center justify-center text-dark-950 text-2xl font-black mb-6 group-hover:scale-110 transition-transform">
+                <div class="glass-card glass-card-hover shine-effect p-8 rounded-3xl border border-white/10 group hover-target" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-gold-600 to-amber-400 flex items-center justify-center text-dark-950 text-2xl font-black mb-6 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(245,158,11,0.4)]">
                         <i class="fa-solid fa-store"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3 font-heading">Maloprodajni Objekat</h3>
                     <p class="text-slate-300 text-sm leading-relaxed font-light mb-6">
                         Posjetite naš objekat na tržnici Arizona. Naše ljubazno osoblje će vam pomoći da izaberete artikle u zavisnosti od potreba.
                     </p>
-                    <a href="#lokacija" class="inline-flex items-center text-xs font-bold uppercase tracking-wider text-gold-400 group-hover:text-gold-300">
+                    <a href="#lokacija" class="inline-flex items-center text-xs font-extrabold uppercase tracking-wider text-gold-400 hover:text-gold-300">
                         Prikaži Lokaciju Objekta <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
 
                 <!-- Kartica 3 -->
-                <div class="glass-card p-8 rounded-3xl border border-white/10 hover:border-gold-500/50 transition-all duration-300 group hover-target" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-gold-600 to-amber-400 flex items-center justify-center text-dark-950 text-2xl font-black mb-6 group-hover:scale-110 transition-transform">
+                <div class="glass-card glass-card-hover shine-effect p-8 rounded-3xl border border-white/10 group hover-target" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-gold-600 to-amber-400 flex items-center justify-center text-dark-950 text-2xl font-black mb-6 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(245,158,11,0.4)]">
                         <i class="fa-solid fa-handshake"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3 font-heading">Dugoročna Saradnja</h3>
                     <p class="text-slate-300 text-sm leading-relaxed font-light mb-6">
                         Postanite naš stalni partner. Nudimo posebne pogodnosti, odloženo plaćanje za redovne kupce i posvećenog menadžera.
                     </p>
-                    <a href="#kontakt" class="inline-flex items-center text-xs font-bold uppercase tracking-wider text-gold-400 group-hover:text-gold-300">
+                    <a href="#kontakt" class="inline-flex items-center text-xs font-extrabold uppercase tracking-wider text-gold-400 hover:text-gold-300">
                         Postanite Partner <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
@@ -525,14 +624,14 @@
         </div>
     </section>
 
-    <!-- KATALOG / GALERIJA PROIZVODA (Enterprise sa Pretragom i Filtrom) -->
+    <!-- KATALOG / GALERIJA PROIZVODA (30 Slika sa Pretragom i Filtrom) -->
     <section id="galerija" class="py-28 bg-dark-950 border-t border-white/5 relative">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Header Galerije -->
             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 gap-8" data-aos="fade-up">
                 <div>
-                    <span class="text-gold-400 font-extrabold tracking-[0.3em] text-xs uppercase block mb-3">
+                    <span class="text-gold-400 font-extrabold tracking-[0.35em] text-xs uppercase block mb-3 font-heading">
                         Asortiman Proizvoda
                     </span>
                     <h2 class="text-3xl sm:text-5xl font-black text-white font-heading">Katalog Artikala</h2>
@@ -541,72 +640,73 @@
                 <!-- Pretraga i Filter Controls -->
                 <div class="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
                     <!-- Input za Pretragu -->
-                    <div class="relative min-w-[260px]">
+                    <div class="relative min-w-[280px]">
                         <input type="text" id="gallery-search" onkeyup="filterGallery()" placeholder="Pretraži artikle..." class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 pl-10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-500 text-sm"></i>
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-500 text-sm"></i>
                     </div>
 
                     <!-- Filter Dugmad -->
                     <div class="flex flex-wrap gap-2" id="filter-buttons">
-                        <button onclick="setFilter('all')" class="filter-btn active px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-gold-500 text-dark-950 transition-all hover-target">Sve</button>
-                        <button onclick="setFilter('veleprodaja')" class="filter-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-dark-900 text-slate-300 border border-white/10 hover:border-gold-500 transition-all hover-target">Veleprodaja</button>
-                        <button onclick="setFilter('premium')" class="filter-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-dark-900 text-slate-300 border border-white/10 hover:border-gold-500 transition-all hover-target">Premium</button>
+                        <button onclick="setFilter('all', this)" class="filter-btn active px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider bg-gold-500 text-dark-950 transition-all hover-target shadow-md">Sve</button>
+                        <button onclick="setFilter('veleprodaja', this)" class="filter-btn px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider bg-dark-900 text-slate-300 border border-white/10 hover:border-gold-500 transition-all hover-target">Veleprodaja</button>
+                        <button onclick="setFilter('premium', this)" class="filter-btn px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider bg-dark-900 text-slate-300 border border-white/10 hover:border-gold-500 transition-all hover-target">Premium</button>
                     </div>
                 </div>
             </div>
 
-            <!-- GRID SA 30 SLIKA (Sa ugrađenim algoritmom za dinamiku) -->
+            <!-- GRID SA 30 SLIKA (sačuvanim nazivima slika slika1.jpg - slika30.jpg) -->
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5" id="gallery-grid">
-                <!-- Javascript dinamički popunjava 30 slika sa sačuvanim nazivima slika slika1.jpg - slika30.jpg -->
+                <!-- Javascript dinamički popunjava 30 slika slika1.jpg do slika30.jpg -->
             </div>
 
             <!-- Poruka ako nema rezultata -->
-            <div id="no-results" class="hidden text-center py-16">
-                <i class="fa-solid fa-box-open text-5xl text-slate-600 mb-4"></i>
-                <p class="text-slate-400 font-bold">Niti jedan artikal ne odgovara vašoj pretrazi.</p>
+            <div id="no-results" class="hidden text-center py-20 bg-dark-900/50 rounded-3xl border border-white/5 my-8">
+                <i class="fa-solid fa-box-open text-6xl text-slate-600 mb-4"></i>
+                <p class="text-slate-400 font-bold text-lg">Niti jedan artikal ne odgovara vašoj pretrazi.</p>
+                <button onclick="resetGallerySearch()" class="mt-4 text-xs font-bold uppercase tracking-widest text-gold-400 hover:underline">Prikaži sve artikle</button>
             </div>
 
         </div>
     </section>
 
     <!-- ČESTO POSTAVLJANA PITANJA (FAQ) -->
-    <section class="py-20 bg-dark-900 border-t border-white/5">
+    <section class="py-24 bg-dark-900 border-t border-white/5">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <span class="text-gold-400 font-extrabold tracking-[0.3em] text-xs uppercase block mb-2">FAQ</span>
-                <h2 class="text-3xl font-black text-white font-heading">Često Postavljana Pitanja</h2>
+            <div class="text-center mb-14" data-aos="fade-up">
+                <span class="text-gold-400 font-extrabold tracking-[0.35em] text-xs uppercase block mb-2 font-heading">FAQ</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white font-heading">Često Postavljana Pitanja</h2>
             </div>
 
             <div class="space-y-4" data-aos="fade-up">
                 <!-- FAQ 1 -->
-                <div class="bg-dark-950 border border-white/10 rounded-2xl overflow-hidden">
-                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left font-bold text-white flex justify-between items-center hover:text-gold-400 transition-colors">
+                <div class="bg-dark-950 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(this)" class="w-full px-7 py-5 text-left font-bold text-white flex justify-between items-center hover:text-gold-400 transition-colors font-heading text-sm sm:text-base">
                         <span>Gdje se tačno nalazi vaš veleprodajni objekat?</span>
-                        <i class="fa-solid fa-chevron-down text-gold-500 transition-transform"></i>
+                        <i class="fa-solid fa-chevron-down text-gold-500 transition-transform duration-300"></i>
                     </button>
-                    <div class="faq-answer hidden px-6 pb-5 text-sm text-slate-300 leading-relaxed border-t border-white/5 pt-3">
+                    <div class="faq-answer hidden px-7 pb-6 text-sm text-slate-300 leading-relaxed border-t border-white/5 pt-4">
                         Nalazimo se na Tržnici Arizona u mjestu Dubrave (Brčko distrikt BiH). Lokacija je izuzetno pristupačna za sve vrste teretnih i putničkih vozila.
                     </div>
                 </div>
 
                 <!-- FAQ 2 -->
-                <div class="bg-dark-950 border border-white/10 rounded-2xl overflow-hidden">
-                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left font-bold text-white flex justify-between items-center hover:text-gold-400 transition-colors">
+                <div class="bg-dark-950 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(this)" class="w-full px-7 py-5 text-left font-bold text-white flex justify-between items-center hover:text-gold-400 transition-colors font-heading text-sm sm:text-base">
                         <span>Da li vršite dostavu robe na adresu kupca?</span>
-                        <i class="fa-solid fa-chevron-down text-gold-500 transition-transform"></i>
+                        <i class="fa-solid fa-chevron-down text-gold-500 transition-transform duration-300"></i>
                     </button>
-                    <div class="faq-answer hidden px-6 pb-5 text-sm text-slate-300 leading-relaxed border-t border-white/5 pt-3">
+                    <div class="faq-answer hidden px-7 pb-6 text-sm text-slate-300 leading-relaxed border-t border-white/5 pt-4">
                         Da, organizujemo dostavu veleprodajnih narudžbi putem sopstvene logistike ili pouzdanih brzih pošta širom cijele Bosne i Hercegovine.
                     </div>
                 </div>
 
                 <!-- FAQ 3 -->
-                <div class="bg-dark-950 border border-white/10 rounded-2xl overflow-hidden">
-                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left font-bold text-white flex justify-between items-center hover:text-gold-400 transition-colors">
+                <div class="bg-dark-950 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFaq(this)" class="w-full px-7 py-5 text-left font-bold text-white flex justify-between items-center hover:text-gold-400 transition-colors font-heading text-sm sm:text-base">
                         <span>Kako mogu dobiti veleprodajni cjenovnik?</span>
-                        <i class="fa-solid fa-chevron-down text-gold-500 transition-transform"></i>
+                        <i class="fa-solid fa-chevron-down text-gold-500 transition-transform duration-300"></i>
                     </button>
-                    <div class="faq-answer hidden px-6 pb-5 text-sm text-slate-300 leading-relaxed border-t border-white/5 pt-3">
+                    <div class="faq-answer hidden px-7 pb-6 text-sm text-slate-300 leading-relaxed border-t border-white/5 pt-4">
                         Cjenovnik možete zatražiti slanjem upita putem forme na sajtu, ili direktno pozivom / Viberom / WhatsAppom na naše kontakt telefone: +387 62 567 217 ili +387 61 828 208.
                     </div>
                 </div>
@@ -618,38 +718,38 @@
     <section id="lokacija" class="py-28 bg-dark-950 relative border-t border-white/5">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             
-            <div id="kontakt" class="grid grid-cols-1 lg:grid-cols-12 bg-dark-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl" data-aos="fade-up">
+            <div id="kontakt" class="grid grid-cols-1 lg:grid-cols-12 bg-dark-900 rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_30px_100px_rgba(0,0,0,0.8)]" data-aos="fade-up">
                 
                 <!-- Forma za Kontakt (Lijevo) -->
                 <div class="lg:col-span-6 p-8 sm:p-12 lg:p-16 relative">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold-400 to-gold-600"></div>
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-gold-400 via-gold-500 to-amber-600"></div>
                     
-                    <span class="text-gold-400 font-extrabold tracking-[0.3em] text-xs uppercase block mb-2">
+                    <span class="text-gold-400 font-extrabold tracking-[0.35em] text-xs uppercase block mb-2 font-heading">
                         Kontaktirajte Nas
                     </span>
                     <h2 class="text-3xl sm:text-4xl font-black text-white font-heading mb-8">Pošaljite Upit</h2>
 
                     <form onsubmit="handleFormSubmit(event)" class="space-y-6">
                         <div class="relative">
-                            <input type="text" id="form-name" required placeholder=" " class="floating-input w-full bg-dark-950/80 border border-white/10 rounded-xl px-4 py-4 text-white text-sm focus:outline-none focus:border-gold-500 transition-colors hover-target">
+                            <input type="text" id="form-name" required placeholder=" " class="floating-input w-full bg-dark-950/90 border border-white/10 rounded-xl px-4 py-4 text-white text-sm focus:outline-none focus:border-gold-500 transition-colors hover-target">
                             <label for="form-name" class="absolute left-4 top-4 text-xs font-bold uppercase tracking-wider text-slate-400 transition-all pointer-events-none">Ime i Prezime / Naziv Firme</label>
                         </div>
 
                         <div class="relative">
-                            <input type="email" id="form-email" required placeholder=" " class="floating-input w-full bg-dark-950/80 border border-white/10 rounded-xl px-4 py-4 text-white text-sm focus:outline-none focus:border-gold-500 transition-colors hover-target">
+                            <input type="email" id="form-email" required placeholder=" " class="floating-input w-full bg-dark-950/90 border border-white/10 rounded-xl px-4 py-4 text-white text-sm focus:outline-none focus:border-gold-500 transition-colors hover-target">
                             <label for="form-email" class="absolute left-4 top-4 text-xs font-bold uppercase tracking-wider text-slate-400 transition-all pointer-events-none">Vaša Email Adresa</label>
                         </div>
 
                         <div class="relative">
-                            <input type="tel" id="form-phone" placeholder=" " class="floating-input w-full bg-dark-950/80 border border-white/10 rounded-xl px-4 py-4 text-white text-sm focus:outline-none focus:border-gold-500 transition-colors hover-target">
+                            <input type="tel" id="form-phone" placeholder=" " class="floating-input w-full bg-dark-950/90 border border-white/10 rounded-xl px-4 py-4 text-white text-sm focus:outline-none focus:border-gold-500 transition-colors hover-target">
                             <label for="form-phone" class="absolute left-4 top-4 text-xs font-bold uppercase tracking-wider text-slate-400 transition-all pointer-events-none">Broj Telefona (Opcionalno)</label>
                         </div>
 
                         <div class="relative">
-                            <textarea id="form-message" rows="4" required placeholder="Napišite vaše pitanje ili artikle koji vas zanimaju..." class="w-full bg-dark-950/80 border border-white/10 rounded-xl p-4 text-white text-sm focus:outline-none focus:border-gold-500 transition-colors hover-target resize-none"></textarea>
+                            <textarea id="form-message" rows="4" required placeholder="Napišite vaše pitanje ili artikle koji vas zanimaju..." class="w-full bg-dark-950/90 border border-white/10 rounded-xl p-4 text-white text-sm focus:outline-none focus:border-gold-500 transition-colors hover-target resize-none"></textarea>
                         </div>
 
-                        <button type="submit" id="submit-btn" class="hover-target w-full py-4 bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 text-dark-950 font-black uppercase tracking-[0.2em] text-xs rounded-xl hover:shadow-[0_0_25px_rgba(245,158,11,0.4)] transition-all duration-300">
+                        <button type="submit" id="submit-btn" class="hover-target w-full py-4.5 bg-gradient-to-r from-gold-400 via-gold-500 to-amber-500 text-dark-950 font-black uppercase tracking-[0.2em] text-xs rounded-xl hover:shadow-[0_0_30px_rgba(245,158,11,0.5)] transition-all duration-300">
                             Pošalji Poruku <i class="fa-solid fa-paper-plane ml-2"></i>
                         </button>
 
@@ -660,22 +760,22 @@
                 </div>
 
                 <!-- Interaktivna Mapa i Direktne Informacije (Desno) -->
-                <div class="lg:col-span-6 relative min-h-[450px] flex flex-col justify-between bg-dark-950 p-8 sm:p-12">
-                    <!-- Mapa Embed -->
+                <div class="lg:col-span-6 relative min-h-[480px] flex flex-col justify-between bg-dark-950 p-8 sm:p-12">
+                    <!-- Mapa Embed sa Dark filterom -->
                     <div class="absolute inset-0 z-0">
-                        <iframe src="https://maps.google.com/maps?q=44.8279974,18.5656121&z=15&output=embed" class="w-full h-full border-0 filter grayscale invert opacity-40 hover:opacity-80 transition-opacity duration-500" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe src="https://maps.google.com/maps?q=44.8279974,18.5656121&z=15&output=embed" class="w-full h-full border-0 filter grayscale invert opacity-50 hover:opacity-80 transition-opacity duration-500" allowfullscreen="" loading="lazy"></iframe>
                     </div>
 
                     <!-- Overlay Info Box -->
-                    <div class="relative z-10 glass-card p-6 sm:p-8 rounded-2xl border border-white/10 space-y-6">
+                    <div class="relative z-10 glass-card p-6 sm:p-8 rounded-2xl border border-white/10 space-y-6 backdrop-blur-2xl">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-xl bg-gold-500 text-dark-950 flex items-center justify-center shrink-0 font-bold text-xl shadow-[0_0_15px_rgba(245,158,11,0.4)]">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-gold-500 to-amber-400 text-dark-950 flex items-center justify-center shrink-0 font-bold text-xl shadow-[0_0_20px_rgba(245,158,11,0.4)]">
                                 <i class="fa-solid fa-location-dot"></i>
                             </div>
                             <div>
-                                <h4 class="text-white font-bold text-lg font-heading">Adresa i Sedište</h4>
+                                <h4 class="text-white font-bold text-lg font-heading">Adresa i Sjedište</h4>
                                 <p class="text-slate-300 text-sm mt-1">Tržnica Arizona, Dubrave<br>76000 Brčko distrikt, Bosna i Hercegovina</p>
-                                <a href="https://www.google.com/maps/search/?api=1&query=44.8279974,18.5656121" target="_blank" class="inline-flex items-center text-gold-400 text-xs font-bold uppercase tracking-wider mt-3 hover:underline hover-target">
+                                <a href="https://www.google.com/maps/search/?api=1&query=44.8279974,18.5656121" target="_blank" class="inline-flex items-center text-gold-400 text-xs font-extrabold uppercase tracking-wider mt-3 hover:underline hover-target">
                                     Otvori u Google Maps <i class="fa-solid fa-arrow-up-right-from-square ml-1.5"></i>
                                 </a>
                             </div>
@@ -684,11 +784,11 @@
                         <div class="border-t border-white/10 pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                             <div>
                                 <p class="text-slate-400 font-bold uppercase tracking-wider mb-1">Direktor / Prodaja 1</p>
-                                <a href="tel:+38762567217" class="text-white font-bold text-sm hover:text-gold-400 hover-target">+387 62 567 217</a>
+                                <a href="tel:+38762567217" class="text-white font-extrabold text-sm hover:text-gold-400 transition-colors hover-target">+387 62 567 217</a>
                             </div>
                             <div>
                                 <p class="text-slate-400 font-bold uppercase tracking-wider mb-1">Prodaja 2</p>
-                                <a href="tel:+38761828208" class="text-white font-bold text-sm hover:text-gold-400 hover-target">+387 61 828 208</a>
+                                <a href="tel:+38761828208" class="text-white font-extrabold text-sm hover:text-gold-400 transition-colors hover-target">+387 61 828 208</a>
                             </div>
                         </div>
 
@@ -698,10 +798,10 @@
                         </div>
                     </div>
 
-                    <!-- Bottom Tag -->
+                    <!-- Bottom Status Tag -->
                     <div class="relative z-10 mt-6 text-right">
-                        <span class="inline-flex items-center gap-2 bg-dark-900/90 px-4 py-2 rounded-full border border-white/10 text-xs text-slate-300">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Otvoreno za posjete
+                        <span class="inline-flex items-center gap-2 bg-dark-900/90 px-4 py-2 rounded-full border border-white/10 text-xs text-slate-300 font-bold">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span> Otvoreno za posjete
                         </span>
                     </div>
                 </div>
@@ -711,19 +811,19 @@
     </section>
 
     <!-- FOOTER SEKCIJA -->
-    <footer class="bg-dark-950 pt-16 pb-12 border-t border-white/5 text-slate-400 text-xs">
+    <footer class="bg-dark-950 pt-20 pb-12 border-t border-white/5 text-slate-400 text-xs">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-8 pb-12 border-b border-white/5">
                 
                 <!-- Logo & Opis -->
                 <div class="flex flex-col items-center md:items-start text-center md:text-left gap-3">
-                    <img src="jasetradelogo.PNG" alt="Jase TRADE" class="h-12 w-auto filter brightness-0 invert opacity-80" onerror="this.style.display='none'; document.getElementById('footer-fallback').classList.remove('hidden')">
-                    <span id="footer-fallback" class="hidden text-xl font-black text-white">JASE-TRADE d.o.o.</span>
-                    <p class="text-slate-400 max-w-sm">Vaš provjereni veleprodajni i maloprodajni partner. Tržnica Arizona, Brčko distrikt BiH.</p>
+                    <img src="jasetradelogo.PNG" alt="Jase TRADE" class="h-12 w-auto filter brightness-0 invert opacity-90" onerror="this.style.display='none'; document.getElementById('footer-fallback').classList.remove('hidden')">
+                    <span id="footer-fallback" class="hidden text-xl font-black text-white font-heading">JASE-TRADE d.o.o.</span>
+                    <p class="text-slate-400 max-w-sm font-light">Vaš provjereni veleprodajni i maloprodajni partner. Tržnica Arizona, Brčko distrikt BiH.</p>
                 </div>
 
                 <!-- Navigacija u Footeru -->
-                <div class="flex flex-wrap justify-center gap-8 font-bold uppercase tracking-widest text-slate-300">
+                <div class="flex flex-wrap justify-center gap-8 font-extrabold uppercase tracking-widest text-slate-300">
                     <a href="#pocetna" class="hover:text-gold-400 transition hover-target">Početna</a>
                     <a href="#o-nama" class="hover:text-gold-400 transition hover-target">O Nama</a>
                     <a href="#usluge" class="hover:text-gold-400 transition hover-target">Djelatnosti</a>
@@ -733,13 +833,13 @@
 
                 <!-- Društvene Mreže / Kontakt ikone -->
                 <div class="flex gap-4">
-                    <a href="https://wa.me/38762567217" target="_blank" class="w-10 h-10 rounded-full bg-dark-900 border border-white/10 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:border-gold-500 transition hover-target">
+                    <a href="https://wa.me/38762567217" target="_blank" class="w-11 h-11 rounded-xl bg-dark-900 border border-white/10 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:border-gold-500/50 transition hover-target shadow-md">
                         <i class="fa-brands fa-whatsapp text-lg"></i>
                     </a>
-                    <a href="tel:+38762567217" class="w-10 h-10 rounded-full bg-dark-900 border border-white/10 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:border-gold-500 transition hover-target">
+                    <a href="tel:+38762567217" class="w-11 h-11 rounded-xl bg-dark-900 border border-white/10 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:border-gold-500/50 transition hover-target shadow-md">
                         <i class="fa-solid fa-phone text-sm"></i>
                     </a>
-                    <a href="#lokacija" class="w-10 h-10 rounded-full bg-dark-900 border border-white/10 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:border-gold-500 transition hover-target">
+                    <a href="#lokacija" class="w-11 h-11 rounded-xl bg-dark-900 border border-white/10 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:border-gold-500/50 transition hover-target shadow-md">
                         <i class="fa-solid fa-map-location-dot text-sm"></i>
                     </a>
                 </div>
@@ -749,7 +849,7 @@
             <!-- Copyright -->
             <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-400">
                 <p>&copy; <span id="current-year"></span> Jase-TRADE d.o.o. Sva prava zadržana.</p>
-                <p class="tracking-widest uppercase font-bold text-[10px]">Enterprise B2B Standard</p>
+                <p class="tracking-widest uppercase font-extrabold text-[10px] text-slate-400">Enterprise B2B Standard • World Class Level</p>
             </div>
         </div>
     </footer>
@@ -764,15 +864,15 @@
                 preloader.style.opacity = '0';
                 setTimeout(() => {
                     preloader.style.visibility = 'hidden';
-                    AOS.init({ duration: 800, once: true, offset: 40 });
-                }, 700);
-            }, 800);
+                    AOS.init({ duration: 800, once: true, offset: 30 });
+                }, 800);
+            }, 600);
         });
 
         // Autoupdate Godine
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // 2. GENERISANJE GALERIJE SA 30 ARTIKALA
+        // 2. GENERISANJE GALERIJE SA 30 ARTIKALA (slika1.jpg - slika30.jpg)
         const galleryGrid = document.getElementById('gallery-grid');
         let galleryData = [];
 
@@ -796,20 +896,20 @@
             }
 
             items.forEach((item, index) => {
-                let delay = (index % 6) * 50;
+                let delay = (index % 6) * 40;
                 const card = document.createElement('div');
-                card.className = `gallery-card bg-dark-900 rounded-2xl p-2 border border-white/5 hover:border-gold-500/50 transition-all duration-300 relative group overflow-hidden hover-target`;
+                card.className = `gallery-card bg-dark-900 rounded-2xl p-2.5 border border-white/5 hover:border-gold-500/50 transition-all duration-300 relative group overflow-hidden hover-target glass-card-hover`;
                 card.setAttribute('data-aos', 'fade-up');
                 card.setAttribute('data-aos-delay', delay);
                 
                 card.innerHTML = `
                     <div class="aspect-[4/5] rounded-xl overflow-hidden relative bg-dark-950 cursor-pointer" onclick="openLightbox('${item.image}', '${item.title}')">
-                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x800/0f172a/f59e0b?font=montserrat&text=Artikal+${item.id}'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                            <span class="text-gold-400 text-[10px] font-black uppercase tracking-widest mb-1 translate-y-2 group-hover:translate-y-0 transition-transform">Premium Ponuda</span>
-                            <h4 class="text-white font-bold text-sm translate-y-2 group-hover:translate-y-0 transition-transform">${item.title}</h4>
-                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-gold-500 text-dark-950 flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-300">
-                                <i class="fa-solid fa-expand text-sm"></i>
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x800/0b0f19/f59e0b?font=montserrat&text=Artikal+${item.id}'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                            <span class="text-gold-400 text-[9px] font-black uppercase tracking-widest mb-1 translate-y-2 group-hover:translate-y-0 transition-transform">Premium Ponuda</span>
+                            <h4 class="text-white font-bold text-sm translate-y-2 group-hover:translate-y-0 transition-transform font-heading">${item.title}</h4>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-gold-500 text-dark-950 flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-300 shadow-lg">
+                                <i class="fa-solid fa-expand text-base"></i>
                             </div>
                         </div>
                     </div>
@@ -818,19 +918,18 @@
             });
         }
 
-        // Inicijalni prikaz
         renderGallery(galleryData);
 
         // Filter Funkcija
         let currentFilter = 'all';
-        function setFilter(filter) {
+        function setFilter(filter, btnElement) {
             currentFilter = filter;
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-gold-500', 'text-dark-950', 'active');
+                btn.classList.remove('bg-gold-500', 'text-dark-950', 'active', 'shadow-md');
                 btn.classList.add('bg-dark-900', 'text-slate-300');
             });
-            event.target.classList.add('bg-gold-500', 'text-dark-950', 'active');
-            event.target.classList.remove('bg-dark-900', 'text-slate-300');
+            btnElement.classList.add('bg-gold-500', 'text-dark-950', 'active', 'shadow-md');
+            btnElement.classList.remove('bg-dark-900', 'text-slate-300');
             filterGallery();
         }
 
@@ -842,6 +941,11 @@
                 return matchesFilter && matchesSearch;
             });
             renderGallery(filtered);
+        }
+
+        function resetGallerySearch() {
+            document.getElementById('gallery-search').value = '';
+            setFilter('all', document.querySelectorAll('.filter-btn')[0]);
         }
 
         // 3. CUSTOM KURSOR LOGIKA
@@ -859,7 +963,7 @@
                 cursorOutline.animate({
                     left: `${posX}px`,
                     top: `${posY}px`
-                }, { duration: 400, fill: "forwards" });
+                }, { duration: 350, fill: "forwards" });
             });
 
             document.addEventListener('mouseover', (e) => {
@@ -876,10 +980,10 @@
         window.addEventListener('scroll', () => {
             if (window.scrollY > 40) {
                 header.classList.remove('py-5');
-                header.classList.add('py-2');
+                header.classList.add('py-2.5');
             } else {
                 header.classList.add('py-5');
-                header.classList.remove('py-2');
+                header.classList.remove('py-2.5');
             }
         });
 
@@ -906,10 +1010,12 @@
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxWaBtn = document.getElementById('lightbox-wa-btn');
 
         function openLightbox(src, title) {
             lightboxImg.src = src;
             lightboxCaption.textContent = title;
+            lightboxWaBtn.href = `https://wa.me/38762567217?text=Zdravo,%20zanima%20me%20artikal:%20${encodeURIComponent(title)}`;
             lightbox.classList.remove('opacity-0', 'pointer-events-none');
             document.body.style.overflow = 'hidden';
         }
@@ -923,7 +1029,25 @@
             if (e.target === lightbox) closeLightbox();
         });
 
-        // 8. ANIMIRANI BROJAČI
+        // 8. B2B MODAL CONTROLS
+        const b2bModal = document.getElementById('b2b-modal');
+        function openB2BModal() {
+            b2bModal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeB2BModal() {
+            b2bModal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleB2BSubmit(e) {
+            e.preventDefault();
+            alert('Vaš B2B upit je zaprimljen. Kontaktiraćemo Vas u najkraćem mogućem roku!');
+            closeB2BModal();
+        }
+
+        // 9. ANIMIRANI BROJAČI
         const counters = document.querySelectorAll('.counter');
         const counterObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -931,13 +1055,13 @@
                     const counter = entry.target;
                     const target = +counter.getAttribute('data-target');
                     let count = 0;
-                    const speed = target / 80;
+                    const speed = target / 70;
 
                     const updateCount = () => {
                         count += speed;
                         if (count < target) {
                             counter.innerText = Math.ceil(count);
-                            setTimeout(updateCount, 20);
+                            setTimeout(updateCount, 25);
                         } else {
                             counter.innerText = target;
                         }
@@ -950,7 +1074,7 @@
 
         counters.forEach(c => counterObserver.observe(c));
 
-        // 9. FAQ TOGGLE
+        // 10. FAQ TOGGLE
         function toggleFaq(btn) {
             const answer = btn.nextElementSibling;
             const icon = btn.querySelector('i');
@@ -958,7 +1082,7 @@
             icon.classList.toggle('rotate-180');
         }
 
-        // 10. FORMA SUBMIT
+        // 11. FORMA SUBMIT
         function handleFormSubmit(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
